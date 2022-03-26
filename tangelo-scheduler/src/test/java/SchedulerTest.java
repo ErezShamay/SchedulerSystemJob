@@ -1,4 +1,4 @@
-import concrete.tasks.DummyCounterJobTask;
+import concrete.tasks.*;
 import org.junit.*;
 import tangelo.JobInterval;
 import tangelo.JobManager;
@@ -21,6 +21,15 @@ public class SchedulerTest {
 
         Assert.assertEquals(dummyCounter.counter, 1);
         Assert.assertEquals(dummyCounter.cleanedup, true);
+        jobManager.cancelAll();
+    }
+
+    @Test
+    public void sleeperTest() throws Exception {
+        JobManager jobManager = new JobManager();
+        SleeperJobTask sleeperJobTask = new SleeperJobTask("SleeperJobTask", JobInterval.ThreeSecond, 4);
+        sleeperJobTask.execute();
+        sleeperJobTask.cleanup();
         jobManager.cancelAll();
     }
 }
