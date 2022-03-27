@@ -28,10 +28,13 @@ public class SchedulerTest {
     @Test
     public void sleeperTest() throws Exception {
         JobManager jobManager = new JobManager();
-        SleeperJobTask sleeperJobTask1 = new SleeperJobTask("SleeperJobTask1", JobInterval.ThreeSecond, 4);
-        SleeperJobTask sleeperJobTask2 = new SleeperJobTask("SleeperJobTask2", JobInterval.ThreeSecond, 6);
-        jobManager.execute(sleeperJobTask1);
-        jobManager.execute(sleeperJobTask2);
+        JobTask jobTask1 = new SleeperJobTask("SleeperJobTask1", JobInterval.ThreeSecond, 4);
+        JobTask jobTask2 = new SleeperJobTask("SleeperJobTask2", JobInterval.ThreeSecond, 6);
+        jobManager.execute(jobTask1);
+        jobManager.execute(jobTask2);
+
+        Thread.sleep(5000);
+
         jobManager.introspect();
         jobManager.cancelAll();
     }
