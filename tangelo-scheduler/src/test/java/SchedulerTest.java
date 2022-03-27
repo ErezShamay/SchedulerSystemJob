@@ -30,11 +30,9 @@ public class SchedulerTest {
         JobManager jobManager = new JobManager();
         SleeperJobTask sleeperJobTask1 = new SleeperJobTask("SleeperJobTask1", JobInterval.ThreeSecond, 4);
         SleeperJobTask sleeperJobTask2 = new SleeperJobTask("SleeperJobTask2", JobInterval.ThreeSecond, 6);
-        sleeperJobTask1.execute();
-        sleeperJobTask2.execute();
+        jobManager.execute(sleeperJobTask1);
+        jobManager.execute(sleeperJobTask2);
         jobManager.introspect();
-        sleeperJobTask1.cleanup();
-        sleeperJobTask2.cleanup();
         jobManager.cancelAll();
     }
 }
