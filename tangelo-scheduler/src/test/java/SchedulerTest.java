@@ -21,15 +21,20 @@ public class SchedulerTest {
 
         Assert.assertEquals(dummyCounter.counter, 1);
         Assert.assertEquals(dummyCounter.cleanedup, true);
+        jobManager.introspect();
         jobManager.cancelAll();
     }
 
     @Test
     public void sleeperTest() throws Exception {
         JobManager jobManager = new JobManager();
-        SleeperJobTask sleeperJobTask = new SleeperJobTask("SleeperJobTask", JobInterval.ThreeSecond, 4);
-        sleeperJobTask.execute();
-        sleeperJobTask.cleanup();
+        SleeperJobTask sleeperJobTask1 = new SleeperJobTask("SleeperJobTask1", JobInterval.ThreeSecond, 4);
+        SleeperJobTask sleeperJobTask2 = new SleeperJobTask("SleeperJobTask2", JobInterval.ThreeSecond, 6);
+        sleeperJobTask1.execute();
+        sleeperJobTask2.execute();
+        jobManager.introspect();
+        sleeperJobTask1.cleanup();
+        sleeperJobTask2.cleanup();
         jobManager.cancelAll();
     }
 }
